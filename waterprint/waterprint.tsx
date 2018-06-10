@@ -4,7 +4,7 @@
 export const regulaer = {
     blankReg: /\s+/g,
     intReg: /^[1-9]\d*$/,
-}
+};
 
 /**
  * 水印参数
@@ -16,20 +16,25 @@ export type wpParas = {
     username: string,
     angle?: number | string,
     font?: string,
-}
+};
 
 /**
  * 对外开放的生成水印入口函数（返回style对象）
- * @param paras 参数信息 
+ * @param paras 参数信息
  * username: 必选
  * angle: 可选，默认为15
  * font: 可选，默认为24px -apple-system, sans-serif, Arial
  */
-export function waterPrint(paras: object = {
-    angle: 15,
-    font: "24px -apple-system, sans-serif, Arial"
-}): object {
-    return this.createWaterPrint(paras);
+export function waterPrint({
+    username,
+    angle = 15,
+    font = "24px -apple-system, sans-serif, Arial",
+}: wpParas): object {
+    return createWaterPrint({
+        username: username,
+        angle: angle,
+        font: font,
+    });
 }
 
 /**
@@ -75,7 +80,7 @@ function checkParas(paras: object): boolean {
  * @param paras 传入的参数
  */
 function createWaterPrint(paras: object): object {
-    const isPass = this.checkParas(paras);
+    const isPass = checkParas(paras);
     if (isPass) {
         // 水印内容
         const text = paras["username"];
